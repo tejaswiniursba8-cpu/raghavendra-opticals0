@@ -20,8 +20,6 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
   margin-top:10px;
   padding:6px;
   width:50%;
-  border-radius:4px;
-  border:none;
 }
 
 .products {
@@ -40,17 +38,16 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
 
 .card img {
   width:100%;
-  height:160px;
+  height:150px;
   object-fit:cover;
 }
 
-.price { color:#B12704; font-weight:bold; }
+.price { color:#B12704; }
 
 .buy {
   background:#ffa41c;
   border:none;
   padding:8px 12px;
-  border-radius:5px;
   cursor:pointer;
 }
 
@@ -104,39 +101,39 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
   Total: ₹<span id="total">0</span>
 </div>
 
-<!-- PRODUCTS -->
+<!-- MAIN PRODUCTS -->
 <div class="products">
 
-<div class="card" data-name="frame">
+<div class="card">
 <img src="https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf">
 <h4>Stylish Frame</h4>
-<p class="price">₹1200</p>
-<button class="buy" onclick="orderNow('Stylish Frame',1200)">Order</button>
+<p class="price">From ₹1200</p>
+<button class="buy" onclick="showCategory('frame')">Order</button>
 </div>
 
-<div class="card" data-name="premium">
+<div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>Premium Frame</h4>
-<p class="price">₹2500</p>
-<button class="buy" onclick="orderNow('Premium Frame',2500)">Order</button>
+<p class="price">From ₹2500</p>
+<button class="buy" onclick="showCategory('premium')">Order</button>
 </div>
 
-<div class="card" data-name="sunglasses">
+<div class="card">
 <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083">
 <h4>Sunglasses</h4>
-<p class="price">₹1500</p>
-<button class="buy" onclick="orderNow('Sunglasses',1500)">Order</button>
+<p class="price">From ₹1500</p>
+<button class="buy" onclick="showCategory('sunglasses')">Order</button>
 </div>
 
 </div>
 
 <!-- POPUP -->
 <div id="orderPopup">
-<h3>🛒 Your Order</h3>
+<h3 id="popupTitle">Products</h3>
+<div id="categoryItems"></div>
 
-<div id="orderItems"></div>
-
-<p><b>Total: ₹<span id="popupTotal"></span></b></p>
+<hr>
+<p><b>Total: ₹<span id="popupTotal">0</span></b></p>
 
 <button onclick="goWhatsApp()">💬 WhatsApp Order</button><br><br>
 
@@ -150,15 +147,15 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
 <!-- MAP -->
 <div class="map">
 <iframe src="https://www.google.com/maps?q=Raghavendra%20Opticals%20Bangalore&output=embed"
-width="90%" height="250" style="border:0;"></iframe>
+width="90%" height="250"></iframe>
 
-<div style="margin-top:10px;">
+<br><br>
+
 <a href="https://maps.app.goo.gl/FVcMtQgCJwjd3SCB9" target="_blank">
-<button style="background:#007bff;color:white;padding:10px 20px;border-radius:6px;">
+<button style="background:#007bff;color:white;padding:10px 20px;">
 📍 Get Directions
 </button>
 </a>
-</div>
 </div>
 
 <!-- FOOTER -->
@@ -171,13 +168,49 @@ width="90%" height="250" style="border:0;"></iframe>
 let cart = {};
 let total = 0;
 
-let productImages = {
-  "Stylish Frame": "https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf",
-  "Premium Frame": "https://images.unsplash.com/photo-1572635196237-14b3f281503f",
-  "Sunglasses": "https://images.unsplash.com/photo-1511499767150-a48a237f0083"
+/* PRODUCTS DATABASE */
+let categories = {
+  frame: [
+    {name:"Classic Frame", price:1200, img:"https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf"},
+    {name:"Modern Frame", price:1300, img:"https://images.unsplash.com/photo-1517841905240-472988babdf9"},
+    {name:"Round Frame", price:1400, img:"https://images.unsplash.com/photo-1526178613552-2b45c6c302f0"}
+  ],
+
+  premium: [
+    {name:"Premium Black", price:2500, img:"https://images.unsplash.com/photo-1572635196237-14b3f281503f"},
+    {name:"Luxury Gold", price:2800, img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083"},
+    {name:"Designer Frame", price:3000, img:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"}
+  ],
+
+  sunglasses: [
+    {name:"Cool Shades", price:1500, img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083"},
+    {name:"Dark Glass", price:1700, img:"https://images.unsplash.com/photo-1509695507497-903c140c43b0"},
+    {name:"Stylish Sunglass", price:1800, img:"https://images.unsplash.com/photo-1526178613552-2b45c6c302f0"}
+  ]
 };
 
-/* ORDER BUTTON = ADD + OPEN POPUP */
+/* SHOW CATEGORY */
+function showCategory(type){
+  let items = categories[type];
+  let html = "";
+
+  items.forEach(p => {
+    html += `
+      <div style="display:inline-block; width:160px; margin:10px;">
+        <img src="${p.img}" style="width:100%; height:100px;"><br>
+        <b>${p.name}</b><br>
+        ₹${p.price}<br>
+        <button onclick="orderNow('${p.name}', ${p.price})">Order</button>
+      </div>
+    `;
+  });
+
+  document.getElementById("categoryItems").innerHTML = html;
+  document.getElementById("popupTitle").innerText = type.toUpperCase() + " COLLECTION";
+  document.getElementById("orderPopup").style.display = "block";
+}
+
+/* ORDER */
 function orderNow(name, price){
   if(cart[name]){
     cart[name].qty++;
@@ -186,12 +219,11 @@ function orderNow(name, price){
   }
 
   total += price;
-  updateCart();
-  openPopup();
+  updateTotal();
 }
 
-/* UPDATE CART TOP */
-function updateCart(){
+/* TOTAL */
+function updateTotal(){
   let count = 0;
 
   for(let item in cart){
@@ -200,32 +232,13 @@ function updateCart(){
 
   document.getElementById("count").innerText = count;
   document.getElementById("total").innerText = total;
-}
-
-/* POPUP FULL CART */
-function openPopup(){
-  let html = "";
-
-  for(let item in cart){
-    html += `
-      <div style="margin-bottom:10px;">
-        <img src="${productImages[item]}" width="80"><br>
-        <b>${item}</b><br>
-        Qty: ${cart[item].qty}<br>
-        Price: ₹${cart[item].price}
-      </div>
-    `;
-  }
-
-  document.getElementById("orderItems").innerHTML = html;
   document.getElementById("popupTotal").innerText = total;
 
   document.getElementById("upiLink").href =
     "upi://pay?pa=tejaswiniursba8@ptyes&pn=RaghavendraOpticals&am=" + total;
-
-  document.getElementById("orderPopup").style.display = "block";
 }
 
+/* CLOSE */
 function closePopup(){
   document.getElementById("orderPopup").style.display = "none";
 }
@@ -248,7 +261,7 @@ function search(value){
   value = value.toLowerCase();
   let items = document.querySelectorAll(".card");
   items.forEach(item=>{
-    let name = item.getAttribute("data-name");
+    let name = item.innerText.toLowerCase();
     item.style.display = name.includes(value) ? "block" : "none";
   });
 }
