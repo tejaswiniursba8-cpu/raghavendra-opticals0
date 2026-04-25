@@ -15,7 +15,6 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
 }
 .logo { font-size:20px; font-weight:bold; }
 
-/* SEARCH */
 .search-box {
   padding:5px; width:40%; border-radius:4px; border:none;
 }
@@ -42,7 +41,6 @@ button {
 }
 .add { background:#ffd814; }
 .buy { background:#ffa41c; }
-.pay { background:#28a745; color:white; }
 
 /* CART */
 .cart {
@@ -50,11 +48,23 @@ button {
   background:white; padding:10px; border-radius:10px;
 }
 
-/* MAP */
-.map {
+/* POPUP */
+#orderPopup {
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  z-index:1000;
   text-align:center;
-  margin:30px;
 }
+
+/* MAP */
+.map { text-align:center; margin:30px; }
 
 /* FOOTER */
 .footer {
@@ -77,8 +87,7 @@ button {
 <!-- CART -->
 <div class="cart">
   🛒 Items: <span id="count">0</span><br>
-  Total: ₹<span id="total">0</span><br>
-  <button onclick="orderWhatsApp()">Order</button>
+  Total: ₹<span id="total">0</span>
 </div>
 
 <!-- PRODUCTS -->
@@ -89,7 +98,7 @@ button {
 <h4>Stylish Frame</h4>
 <p class="price">₹1200</p>
 <button class="add" onclick="add('Stylish Frame',1200)">Add</button>
-<button class="buy" onclick="buy('Stylish Frame',1200)">Buy</button>
+<button class="buy" onclick="openPopup('Stylish Frame',1200)">Order</button>
 </div>
 
 <div class="card" data-name="premium">
@@ -97,7 +106,7 @@ button {
 <h4>Premium Frame</h4>
 <p class="price">₹2500</p>
 <button class="add" onclick="add('Premium Frame',2500)">Add</button>
-<button class="buy" onclick="buy('Premium Frame',2500)">Buy</button>
+<button class="buy" onclick="openPopup('Premium Frame',2500)">Order</button>
 </div>
 
 <div class="card" data-name="sunglasses">
@@ -105,12 +114,26 @@ button {
 <h4>Sunglasses</h4>
 <p class="price">₹1500</p>
 <button class="add" onclick="add('Sunglasses',1500)">Add</button>
-<button class="buy" onclick="buy('Sunglasses',1500)">Buy</button>
+<button class="buy" onclick="openPopup('Sunglasses',1500)">Order</button>
 </div>
 
 </div>
 
-<!-- MAP (UPDATED) -->
+<!-- POPUP -->
+<div id="orderPopup">
+<h3 id="productName"></h3>
+<p id="productPrice"></p>
+
+<button onclick="goWhatsApp()">💬 WhatsApp Order</button><br><br>
+
+<a id="upiLink">
+<button style="background:#28a745;color:white;">💳 Pay via UPI</button>
+</a><br><br>
+
+<button onclick="closePopup()">❌ Close</button>
+</div>
+
+<!-- MAP -->
 <div class="map">
 <iframe 
 src="https://www.google.com/maps?q=Raghavendra%20Opticals&output=embed"
@@ -118,15 +141,7 @@ width="90%" height="250" style="border:0;">
 </iframe>
 </div>
 
-<!-- PAYMENT -->
-<div style="text-align:center;">
-<h3>Pay via UPI</h3>
-<a href="upi://pay?pa=tejaswiniursba8@ptyes&pn=RaghavendraOpticals">
-<button class="pay">Pay Now</button>
-</a>
-</div>
-
-<!-- CONTACT -->
+<!-- FOOTER -->
 <div class="footer">
 <p>📞 9480500674</p>
 <p>© 2026 Raghavendra Opticals</p>
@@ -143,16 +158,6 @@ function add(name, price){
   document.getElementById("total").innerText = total;
 }
 
-function buy(name, price){
-  let msg = "I want to buy: " + name + " ₹" + price;
-  window.open("https://wa.me/919480500674?text=" + encodeURIComponent(msg));
-}
-
-function orderWhatsApp(){
-  let msg = "Order:\n" + cart.join("\n") + "\nTotal ₹" + total;
-  window.open("https://wa.me/919480500674?text=" + encodeURIComponent(msg));
-}
-
 /* SEARCH */
 function search(value){
   value = value.toLowerCase();
@@ -161,6 +166,32 @@ function search(value){
     let name = item.getAttribute("data-name");
     item.style.display = name.includes(value) ? "block" : "none";
   });
+}
+
+/* POPUP LOGIC */
+let selectedProduct = "";
+let selectedPrice = 0;
+
+function openPopup(name, price){
+  selectedProduct = name;
+  selectedPrice = price;
+
+  document.getElementById("productName").innerText = name;
+  document.getElementById("productPrice").innerText = "₹" + price;
+
+  document.getElementById("upiLink").href =
+    "upi://pay?pa=tejaswiniursba8@ptyes&pn=RaghavendraOpticals&am=" + price;
+
+  document.getElementById("orderPopup").style.display = "block";
+}
+
+function closePopup(){
+  document.getElementById("orderPopup").style.display = "none";
+}
+
+function goWhatsApp(){
+  let msg = "I want to order:\n" + selectedProduct + "\nPrice: ₹" + selectedPrice;
+  window.open("https://wa.me/919480500674?text=" + encodeURIComponent(msg));
 }
 </script>
 
