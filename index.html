@@ -2,177 +2,130 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Raghavendra Opticals</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raghavendra Opticals</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #e6f7ff, #ffffff);
-}
+body { margin:0; font-family:Arial; background:#f3f3f3; }
 
-/* HEADER */
-.container {
-    text-align: center;
-    padding: 30px;
+/* NAVBAR */
+.navbar {
+  background:#131921; color:white; padding:10px;
+  display:flex; justify-content:space-between; align-items:center;
 }
-
-h1 {
-    font-size: 45px;
-    color: #0a2a66;
-}
-
-h2 {
-    color: #2e8b57;
-    letter-spacing: 4px;
-}
-
-.owner {
-    color: #444;
-}
-
-/* SERVICES */
-.services {
-    margin-top: 20px;
-}
-
-.service {
-    display: inline-block;
-    padding: 12px 20px;
-    margin: 8px;
-    border-radius: 25px;
-    background: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    cursor: pointer;
-}
+.logo { font-size:20px; font-weight:bold; }
 
 /* PRODUCTS */
 .products {
-    margin-top: 30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px; padding:20px;
 }
-
-.product-card {
-    display: inline-block;
-    width: 200px;
-    margin: 15px;
-    padding: 15px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.card {
+  background:white; padding:15px; border-radius:8px;
+  text-align:center;
 }
+.card img { width:100%; height:150px; object-fit:cover; }
 
-.product-card img {
-    width: 100%;
-    border-radius: 8px;
+.price { color:#B12704; font-weight:bold; }
+
+/* BUTTONS */
+button {
+  margin:5px; padding:6px 10px;
+  border:none; border-radius:4px;
+  cursor:pointer;
 }
+.add { background:#ffd814; }
+.buy { background:#ffa41c; }
+.pay { background:#28a745; color:white; }
 
-/* BUTTON */
-.whatsapp-btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 12px;
-    background: #25D366;
-    color: white;
-    border-radius: 6px;
-    text-decoration: none;
-}
-
-/* MAP */
-.map {
-    margin-top: 40px;
-}
-
-/* FOOTER */
-.footer {
-    margin-top: 40px;
-    padding: 15px;
-    background: #f2f9ff;
-    text-align: center;
+/* CART */
+.cart {
+  position:fixed; right:10px; top:10px;
+  background:white; padding:10px; border-radius:10px;
 }
 </style>
-
-<script>
-function showProducts(type) {
-    let content = document.getElementById("products");
-
-    if (type === "frames") {
-        content.innerHTML = `
-        <div class="product-card">
-            <img src="https://i.imgur.com/2DhmtJ4.jpg">
-            <p>Stylish Frame ₹250 - ₹999</p>
-            <a class="whatsapp-btn" href="https://wa.me/919480500674">Order</a>
-        </div>
-
-        <div class="product-card">
-            <img src="https://i.imgur.com/8Km9tLL.jpg">
-            <p>Premium Frame ₹2500</p>
-            <a class="whatsapp-btn" href="https://wa.me/919480500674">Order</a>
-        </div>
-        `;
-    }
-
-    if (type === "sunglasses") {
-        content.innerHTML = `
-        <div class="product-card">
-            <img src="https://i.imgur.com/7R8R6R6.jpg">
-            <p>UV Sunglasses ₹899</p>
-            <a class="whatsapp-btn" href="https://wa.me/919480500674">Order</a>
-        </div>
-        `;
-    }
-
-    if (type === "lenses") {
-        content.innerHTML = `
-        <div class="product-card">
-            <p>Color Lens ₹250</p>
-            <a class="whatsapp-btn" href="https://wa.me/919480500674">Order</a>
-        </div>
-        `;
-    }
-
-    if (type === "eye") {
-        content.innerHTML = `
-        <div class="product-card">
-            <p>Free Eye Testing Available</p>
-        </div>
-        `;
-    }
-}
-</script>
-
 </head>
 
 <body>
 
-<div class="container">
-    <h1>RAGHAVENDRA</h1>
-    <h2>OPTICALS</h2>
-    <p class="owner">Owned by ANIL KUMAR B K</p>
-    <p><i>Your Vision, Our Priority</i></p>
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">Raghavendra Opticals</div>
+</div>
 
-    <div class="services">
-        <span class="service" onclick="showProducts('eye')">👁 Eye Testing</span>
-        <span class="service" onclick="showProducts('frames')">👓 Frames</span>
-        <span class="service" onclick="showProducts('lenses')">🟢 Contact Lenses</span>
-        <span class="service" onclick="showProducts('sunglasses')">🕶 Sunglasses</span>
-    </div>
+<!-- CART -->
+<div class="cart">
+  🛒 Items: <span id="count">0</span><br>
+  Total: ₹<span id="total">0</span><br>
+  <button onclick="orderWhatsApp()">WhatsApp Order</button>
+</div>
 
-    <div id="products" class="products"></div>
+<!-- PRODUCTS -->
+<div class="products">
 
-    <!-- MAP -->
-    <div class="map">
-        <iframe 
-        src="https://maps.google.com/maps?q=bangalore&t=&z=13&ie=UTF8&iwloc=&output=embed"
-        width="90%" height="250" style="border:0;">
-        </iframe>
-    </div>
+<div class="card">
+<img src="https://i.imgur.com/2DhmtJ4.jpg">
+<h4>Stylish Frame</h4>
+<p class="price">₹1200</p>
+<button class="add" onclick="add('Stylish Frame',1200)">Add</button>
+<button class="buy" onclick="buy('Stylish Frame',1200)">Buy</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/8Km9tLL.jpg">
+<h4>Premium Frame</h4>
+<p class="price">₹2500</p>
+<button class="add" onclick="add('Premium Frame',2500)">Add</button>
+<button class="buy" onclick="buy('Premium Frame',2500)">Buy</button>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/7R8R6R6.jpg">
+<h4>Sunglasses</h4>
+<p class="price">₹1500</p>
+<button class="add" onclick="add('Sunglasses',1500)">Add</button>
+<button class="buy" onclick="buy('Sunglasses',1500)">Buy</button>
+</div>
 
 </div>
 
-<footer class="footer">
-    © 2026 Raghavendra Opticals | All Rights Reserved
-</footer>
+<script>
+let cart = [];
+let total = 0;
+
+function add(name, price){
+  cart.push(name + " ₹" + price);
+  total += price;
+  document.getElementById("count").innerText = cart.length;
+  document.getElementById("total").innerText = total;
+}
+
+function buy(name, price){
+  let msg = "I want to buy: " + name + " ₹" + price;
+  window.open("https://wa.me/919480500674?text=" + encodeURIComponent(msg));
+}
+
+function orderWhatsApp(){
+  let msg = "Order:\n" + cart.join("\n") + "\nTotal ₹" + total;
+  window.open("https://wa.me/919480500674?text=" + encodeURIComponent(msg));
+}
+</script>
+
+<!-- PAYMENT SECTION -->
+<div style="text-align:center; padding:20px;">
+  <h3>Pay via UPI</h3>
+  <a href="upi://pay?pa=tejaswiniursba8@ptyes&pn=RaghavendraOpticals&am=1">
+    <button class="pay">Pay Now</button>
+  </a>
+</div>
+
+<!-- CONTACT -->
+<div style="text-align:center; padding:20px;">
+  <h3>Contact Us</h3>
+  <p>📞 9480500674</p>
+  <p>📍 Your Shop Address</p>
+</div>
 
 </body>
 </html>
