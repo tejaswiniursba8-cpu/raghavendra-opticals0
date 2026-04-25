@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +9,27 @@
 <style>
 body { margin:0; font-family:Arial; background:#f3f3f3; }
 
-/* NAVBAR */
-.navbar {
-  background:#131921; color:white; padding:10px;
-  display:flex; justify-content:space-between; align-items:center;
+/* HEADER */
+.header {
+  text-align:center;
+  background:#131921;
+  color:white;
+  padding:20px;
 }
-.logo { font-size:20px; font-weight:bold; }
+.header h1 {
+  margin:0;
+  font-size:40px;
+  letter-spacing:2px;
+}
+
+/* SEARCH */
+.search-box {
+  margin-top:10px;
+  padding:6px;
+  width:50%;
+  border-radius:4px;
+  border:none;
+}
 
 /* PRODUCTS */
 .products {
@@ -22,72 +38,137 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
   gap:15px; padding:20px;
 }
 .card {
-  background:white; padding:15px; border-radius:8px;
+  background:white;
+  padding:15px;
+  border-radius:8px;
   text-align:center;
 }
-.card img { width:100%; height:150px; object-fit:cover; }
+.card img {
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:6px;
+}
 
 .price { color:#B12704; font-weight:bold; }
 
 /* BUTTONS */
 button {
-  margin:5px; padding:6px 10px;
-  border:none; border-radius:4px;
+  margin:5px;
+  padding:6px 10px;
+  border:none;
+  border-radius:4px;
   cursor:pointer;
 }
 .add { background:#ffd814; }
 .buy { background:#ffa41c; }
-.pay { background:#28a745; color:white; }
 
 /* CART */
 .cart {
-  position:fixed; right:10px; top:10px;
-  background:white; padding:10px; border-radius:10px;
+  position:fixed;
+  right:10px;
+  top:10px;
+  background:white;
+  padding:10px;
+  border-radius:10px;
+}
+
+/* POPUP */
+#orderPopup {
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  text-align:center;
+}
+
+/* MAP */
+.map { text-align:center; margin:30px; }
+
+/* FOOTER */
+.footer {
+  text-align:center;
+  padding:15px;
+  background:#f2f9ff;
 }
 </style>
+
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-  <div class="logo">Raghavendra Opticals</div>
+<!-- HEADER -->
+<div class="header">
+  <h1>RAGHAVENDRA OPTICALS</h1>
+  <input type="text" class="search-box" placeholder="Search..." onkeyup="search(this.value)">
 </div>
 
 <!-- CART -->
 <div class="cart">
   🛒 Items: <span id="count">0</span><br>
-  Total: ₹<span id="total">0</span><br>
-  <button onclick="orderWhatsApp()">WhatsApp Order</button>
+  Total: ₹<span id="total">0</span>
 </div>
 
 <!-- PRODUCTS -->
 <div class="products">
 
-<div class="card">
-<img src="https://i.imgur.com/4DhmtJ4.jpg">
+<div class="card" data-name="frame">
+<img src="https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf">
 <h4>Stylish Frame</h4>
 <p class="price">₹1200</p>
 <button class="add" onclick="add('Stylish Frame',1200)">Add</button>
-<button class="buy" onclick="buy('Stylish Frame',1200)">Buy</button>
+<button class="buy" onclick="openPopup('Stylish Frame',1200)">Order</button>
 </div>
 
-<div class="card">
-<img src="https://i.imgur.com/8Km8tLL.jpg">
+<div class="card" data-name="premium">
+<img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>Premium Frame</h4>
 <p class="price">₹2500</p>
 <button class="add" onclick="add('Premium Frame',2500)">Add</button>
-<button class="buy" onclick="buy('Premium Frame',2500)">Buy</button>
+<button class="buy" onclick="openPopup('Premium Frame',2500)">Order</button>
 </div>
 
-<div class="card">
-<img src="https://i.imgur.com/7R8R6R7.jpg">
+<div class="card" data-name="sunglasses">
+<img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083">
 <h4>Sunglasses</h4>
 <p class="price">₹1500</p>
 <button class="add" onclick="add('Sunglasses',1500)">Add</button>
-<button class="buy" onclick="buy('Sunglasses',1500)">Buy</button>
+<button class="buy" onclick="openPopup('Sunglasses',1500)">Order</button>
 </div>
 
+</div>
+
+<!-- POPUP -->
+<div id="orderPopup">
+<h3 id="productName"></h3>
+<p id="productPrice"></p>
+
+<button onclick="goWhatsApp()">💬 WhatsApp Order</button><br><br>
+
+<a id="upiLink">
+<button style="background:#28a745;color:white;">💳 Pay via UPI</button>
+</a><br><br>
+
+<button onclick="closePopup()">❌ Close</button>
+</div>
+
+<!-- MAP -->
+<div class="map">
+<iframe 
+src="https://www.google.com/maps?q=Raghavendra%20Opticals&output=embed"
+width="90%" height="250" style="border:0;">
+</iframe>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<p>📞 9480500674</p>
+<p>© 2026 Raghavendra Opticals</p>
 </div>
 
 <script>
@@ -101,31 +182,42 @@ function add(name, price){
   document.getElementById("total").innerText = total;
 }
 
-function buy(name, price){
-  let msg = "I want to buy: " + name + " ₹" + price;
-  window.open("https://wa.me/919480500674?text=" + encodeURIComponent(msg));
+/* SEARCH */
+function search(value){
+  value = value.toLowerCase();
+  let items = document.querySelectorAll(".card");
+  items.forEach(item=>{
+    let name = item.getAttribute("data-name");
+    item.style.display = name.includes(value) ? "block" : "none";
+  });
 }
 
-function orderWhatsApp(){
-  let msg = "Order:\n" + cart.join("\n") + "\nTotal ₹" + total;
+/* POPUP */
+let selectedProduct = "";
+let selectedPrice = 0;
+
+function openPopup(name, price){
+  selectedProduct = name;
+  selectedPrice = price;
+
+  document.getElementById("productName").innerText = name;
+  document.getElementById("productPrice").innerText = "₹" + price;
+
+  document.getElementById("upiLink").href =
+    "upi://pay?pa=tejaswiniursba8@ptyes&pn=RaghavendraOpticals&am=" + price;
+
+  document.getElementById("orderPopup").style.display = "block";
+}
+
+function closePopup(){
+  document.getElementById("orderPopup").style.display = "none";
+}
+
+function goWhatsApp(){
+  let msg = "I want to order:\n" + selectedProduct + "\nPrice: ₹" + selectedPrice;
   window.open("https://wa.me/919480500674?text=" + encodeURIComponent(msg));
 }
 </script>
-
-<!-- PAYMENT SECTION -->
-<div style="text-align:center; padding:20px;">
-  <h3>Pay via UPI</h3>
-  <a href="upi://pay?pa=tejaswiniursba8@ptyes&pn=RaghavendraOpticals&am=1">
-    <button class="pay">Pay Now</button>
-  </a>
-</div>
-
-<!-- CONTACT -->
-<div style="text-align:center; padding:20px;">
-  <h3>Contact Us</h3>
-  <p>📞 9480500674</p>
-  <p>📍 Your Shop Address</p>
-</div>
 
 </body>
 </html>
