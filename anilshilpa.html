@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Raghavendra Opticals</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #e6f7ff, #ffffff);
+}
+
+/* MAIN CONTAINER */
+.container {
+    text-align: center;
+    padding: 40px;
+}
+
+/* TITLE */
+h1 {
+    font-size: 50px;
+    color: #0a2a66;
+    margin: 10px 0;
+}
+
+h2 {
+    color: #2e8b57;
+    letter-spacing: 5px;
+    margin-top: -10px;
+}
+
+/* OWNER */
+.owner {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #444;
+}
+
+/* TAGLINE */
+.tagline {
+    margin-top: 10px;
+    font-style: italic;
+    color: #333;
+}
+
+/* SERVICES */
+.services {
+    margin-top: 30px;
+}
+
+.service {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 25px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.service:hover {
+    background: #d9f2ff;
+    transform: translateY(-3px);
+}
+
+/* PRODUCTS */
+.products {
+    margin-top: 40px;
+    display: none;
+}
+
+.product-box {
+    display: inline-block;
+    padding: 20px;
+    margin: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 50px;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    background: #f2f9ff;
+    border-top: 1px solid #ddd;
+}
+</style>
+
+<script>
+function showProducts(type) {
+    let section = document.getElementById("productSection");
+    let content = document.getElementById("productContent");
+
+    section.style.display = "block";
+
+    if (type === "eye") {
+        content.innerHTML =
+        "<h3>Eye Testing</h3>" +
+        "<div class='product-box'>Free Eye Checkup</div>" +
+        "<div class='product-box'>Computer Eye Test</div>";
+    }
+    else if (type === "frames") {
+        content.innerHTML =
+        "<h3>Frames</h3>" +
+        "<div class='product-box'>Stylish Frame ₹999</div>" +
+        "<div class='product-box'>Premium Frame ₹1999</div>";
+    }
+    else if (type === "lenses") {
+        content.innerHTML =
+        "<h3>Contact Lenses</h3>" +
+        "<div class='product-box'>Soft Lens ₹799</div>" +
+        "<div class='product-box'>Monthly Lens ₹1499</div>";
+    }
+    else if (type === "sunglasses") {
+        content.innerHTML =
+        "<h3>Sunglasses</h3>" +
+        "<div class='product-box'>UV Protection ₹899</div>" +
+        "<div class='product-box'>Polarized ₹1599</div>";
+    }
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div style="font-size:60px;">👓</div>
+
+    <h1>RAGHAVENDRA</h1>
+    <h2>OPTICALS</h2>
+
+    <div class="owner">
+        Owned by: <b>ANIL KUMAR B K</b>
+    </div>
+
+    <div class="tagline">
+        Your Vision, Our Priority
+    </div>
+
+    <!-- SERVICES -->
+    <div class="services">
+        <div class="service" onclick="showProducts('eye')">👁 Eye Testing</div>
+        <div class="service" onclick="showProducts('frames')">👓 Frames</div>
+        <div class="service" onclick="showProducts('lenses')">🟢 Contact Lenses</div>
+        <div class="service" onclick="showProducts('sunglasses')">🕶 Sunglasses</div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="productSection" class="products">
+        <div id="productContent"></div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    © 2026 Raghavendra Opticals | Owned by ANIL KUMAR B K  
+    <br>
+    All Rights Reserved.
+</footer>
+
+</body>
+</html>
