@@ -95,7 +95,7 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
 <!-- CART -->
 <div class="cart">
   🛒 Items: <span id="count">0</span><br>
-  Total: ₹<span id="total">0</span>
+     Total: ₹<span id="total">0</span>
 </div>
 
 <!-- PRODUCTS -->
@@ -203,7 +203,6 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
 <!-- FOOTER -->
 <div class="footer">
 <p>📞 9480500674</p>
-<p>ANIL KUMAR B K<p>
 <p>© 2026 Raghavendra Opticals</p>
 </div>
 
@@ -231,7 +230,7 @@ let categories = {
     {name:"Round Frame", price:999, img:"frame.jpg"}
   ],
 
-  TagyourhighwayFrame: [
+  TagYourHighWayFrame: [
     {name:"Rectangle Frame", price:999, img:"frame.jpg"},
     {name:"Cat Frame", price:999, img:"frame.jpg"},
     {name:"Round Frame", price:999, img:"frame.jpg"}
@@ -252,15 +251,15 @@ let categories = {
     {name:"Dark Glass", price:2500, img:"https://images.unsplash.com/photo-1509695507497-903c140c43b0"}
   ],
 
-  Escapegoggle: [
+  EscapeGoggle: [
     {name:"Escape goggle", price:1000, img:"frame.jpg"},
     ],
 
-  RPMgoggle: [
+  RPMGoggle: [
     {name:"RPM goggle", price:1000, img:"frame.jpg"},
     ],
   
-  contactlens: [
+  ContactLens: [
     {name:"Soft Lens", price:250, img:"lens.jpg"},
     {name:"Color Lens", price:400, img:"lens.jpg"}
   ]
@@ -273,7 +272,7 @@ function showCategory(type){
 
   items.forEach(p => {
 
-    if(type === "frame"){
+    if(type === "Frame"){
       html += `
         <div style="display:inline-block;width:170px;margin:10px;background:#f9f9f9;padding:10px;border-radius:8px;">
           <img src="${p.img}" style="width:100%;height:100px;"><br>
