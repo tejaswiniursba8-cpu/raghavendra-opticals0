@@ -104,56 +104,56 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
 <div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>London Hores Frame</h4>
-<p class="price">From ₹1200</p>
+<p class="price">From ₹300-₹500</p>
 <button class="buy" onclick="showCategory('London Hores Frame')">View</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>Studio 51 Frame</h4>
-<p class="price">From ₹2500</p>
+<p class="price">From ₹999</p>
 <button class="buy" onclick="showCategory('Studio 51 Frame')">View</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>Upscale Frame</h4>
-<p class="price">From ₹2500</p>
+<p class="price">From ₹1199</p>
 <button class="buy" onclick="showCategory('Upscale Frame')">View</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>Tag Your High Way Frame</h4>
-<p class="price">From ₹2500</p>
+<p class="price">From ₹1199</p>
 <button class="buy" onclick="showCategory('Tag Your High Way Frame')">View</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>Operation Frame</h4>
-<p class="price">From ₹2500</p>
+<p class="price">From ₹199</p>
 <button class="buy" onclick="showCategory('Operation Frame')">View</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>CEO Frame</h4>
-<p class="price">From ₹2500</p>
+<p class="price">From ₹999</p>
 <button class="buy" onclick="showCategory('CEO Frame')">View</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>Escape Goggles</h4>
-<p class="price">From ₹2500</p>
+<p class="price">From ₹299</p>
 <button class="buy" onclick="showCategory('Escape Goggles')">View</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f">
 <h4>RPM Frame</h4>
-<p class="price">From ₹2500</p>
+<p class="price">From ₹299</p>
 <button class="buy" onclick="showCategory('RPM Frame')">View</button>
 </div>
 
@@ -203,6 +203,7 @@ body { margin:0; font-family:Arial; background:#f3f3f3; }
 <!-- FOOTER -->
 <div class="footer">
 <p>📞 9480500674</p>
+<p>ANIL KUMAR B K<p>
 <p>© 2026 Raghavendra Opticals</p>
 </div>
 
@@ -212,23 +213,54 @@ let total = 0;
 
 /* PRODUCTS */
 let categories = {
-  frame: [
-    {name:"Classic Frame", price:1200, img:"frame.jpg"},
-    {name:"Modern Frame", price:1300, img:"frame.jpg"},
-    {name:"Round Frame", price:1400, img:"frame.jpg"}
+  LondonHoresframe: [
+    {name:"Rectangle Frame", price:300, img:"frame.jpg"},
+    {name:"Cat Frame", price:300, img:"frame.jpg"},
+    {name:"Round Frame", price:300, img:"frame.jpg"}
   ],
 
-  premium: [
-    {name:"Premium Black", price:2500, img:"https://images.unsplash.com/photo-1572635196237-14b3f281503f"},
-    {name:"Luxury Gold", price:2800, img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083"}
+  Studio51Frame: [
+    {name:"Rectangle Frame", price:999, img:"frame.jpg"},
+    {name:"Cat Frame", price:999, img:"frame.jpg"},
+    {name:"Round Frame", price:999, img:"frame.jpg"}
   ],
 
-  sunglasses: [
-    {name:"Cool Shades", price:1500, img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083"},
-    {name:"Dark Glass", price:1700, img:"https://images.unsplash.com/photo-1509695507497-903c140c43b0"}
+  UpscaleFrame: [
+    {name:"Rectangle Frame", price:999, img:"frame.jpg"},
+    {name:"Cat Frame", price:999, img:"frame.jpg"},
+    {name:"Round Frame", price:999, img:"frame.jpg"}
   ],
 
-  contact: [
+  TagyourhighwayFrame: [
+    {name:"Rectangle Frame", price:999, img:"frame.jpg"},
+    {name:"Cat Frame", price:999, img:"frame.jpg"},
+    {name:"Round Frame", price:999, img:"frame.jpg"}
+    ],
+  
+  OperationFrame: [
+    {name:"Rectangle Frame", price:250, img:"frame.jpg"},
+    ],
+
+  CEOFrame: [
+    {name:"Rectangle Frame", price:999, img:"frame.jpg"},
+    {name:"Cat Frame", price:999, img:"frame.jpg"},
+    {name:"Round Frame", price:999, img:"frame.jpg"}
+  ],
+
+  PolarizedGoggles: [
+    {name:"Cool Shades", price:2500, img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083"},
+    {name:"Dark Glass", price:2500, img:"https://images.unsplash.com/photo-1509695507497-903c140c43b0"}
+  ],
+
+  Escapegoggle: [
+    {name:"Escape goggle", price:1000, img:"frame.jpg"},
+    ],
+
+  RPMgoggle: [
+    {name:"RPM goggle", price:1000, img:"frame.jpg"},
+    ],
+  
+  contactlens: [
     {name:"Soft Lens", price:250, img:"lens.jpg"},
     {name:"Color Lens", price:400, img:"lens.jpg"}
   ]
